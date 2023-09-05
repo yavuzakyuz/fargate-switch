@@ -44,7 +44,12 @@ jobs:
             - backend-config.tfvars
 
   plan-apply:
-    executor: terraform-executor
+    docker:
+      - image: hashicorp/terraform:1.4.0
+    environment:
+      AWS_ACCESS_KEY_ID: ${ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${DEFAULT_REGION}
     working_directory: ~/repo/multi-service
     steps:
       - checkout:
