@@ -63,9 +63,11 @@ jobs:
       - run:
           name: Initialize Terraform
           command: |
-            
-             terraform init -force-copy -backend-config="region=us-west-2" -backend-config="access_key=${ACCESS_KEY_ID}" -backend-config="secret_key=${SECRET_ACCESS_KEY}"
-             terraform plan
+            echo "access_key = \"$ACCESS_KEY_ID\"" > backend-config.tfvars
+            echo "secret_key = \"$SECRET_ACCESS_KEY\"" >> backend-config.tfvars
+            echo "region = \"us-west-2\"" >> backend-config.tfvars
+            terraform init -backend-config=backend-config.tfvars
+            terraform plan -var-file=backend-config.tfvars
 
       - run:
           name: Terraform Plan
