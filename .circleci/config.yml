@@ -52,7 +52,7 @@ jobs:
       - run:
           name: Check AWS Environment Variables
           command: |
-            export AWS_DEFAULT_REGION="us-west-2"
+
             echo "Checking if AWS_ACCESS_KEY_ID is set: ${AWS_ACCESS_KEY_ID:+SET}"
             echo "Checking if AWS_SECRET_ACCESS_KEY is set: ${AWS_SECRET_ACCESS_KEY:+SET}"
             echo "Checking if AWS_DEFAULT_REGION is set: ${AWS_DEFAULT_REGION}"
