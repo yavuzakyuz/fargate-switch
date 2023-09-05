@@ -11,17 +11,15 @@ jobs:
           name: Check AWS Environment Variables
           command: |
             ls -la && pwd
-      - checkout:
-          path: ~/repo
-      - terraform/fmt:
-          path: ~/repo/multi-service
-      - terraform/validate:
-          path: ~/repo/multi-service
+      - checkout
+      - terraform/fmt
+      - terraform/validate
+        
       - terraform/init:
           backend: true
-          path: ~/repo/multi-service
-      - terraform/plan:
-          path: ~/repo/multi-service
+         
+      - terraform/plan
+       
     working_directory: ~/repo/multi-service
 
 workflows:
