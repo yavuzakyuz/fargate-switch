@@ -62,7 +62,7 @@ jobs:
               
       - run:
           name: Initialize Terraform
-          command: terraform init -backend-config="region=us-west-2" -backend-config="access_key=AKIAZ3LRTZ26QCY7X7XZ" -backend-config="secret_key=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"
+          command: terraform init -backend-config="region=us-west-2" -backend-config="access_key=${ACCESS_KEY_ID}" -backend-config="secret_key=${SECRET_ACCESS_KEY}"
       - run:
           name: Terraform Plan
           command: terraform plan
