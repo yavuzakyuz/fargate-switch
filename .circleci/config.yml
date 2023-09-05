@@ -64,7 +64,7 @@ jobs:
               
       - run:
           name: Initialize Terraform
-          command: terraform init -backend-config="region=$AWS_DEFAULT_REGION" -backend-config="access_key=$AWS_ACCESS_KEY_ID" -backend-config="secret_key=$AWS_SECRET_ACCESS_KEY"
+          command: terraform init -backend-config="region=us-west-2" -backend-config="access_key=$AWS_ACCESS_KEY_ID" -backend-config="secret_key=$AWS_SECRET_ACCESS_KEY"
       - run:
           name: Terraform Plan
           command: terraform plan
