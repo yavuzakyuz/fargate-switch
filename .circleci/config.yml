@@ -63,7 +63,8 @@ jobs:
           name: "Setup custom environment variables"
           command: |
             echo 'export AWS_ACCESS_KEY_ID="${ACCESS_KEY_ID}"' >> "$BASH_ENV"  
-            printenv    
+            printenv
+            echo $AWS_ACCESS_KEY_ID
 
       - run:
           name: Print all environment variables
