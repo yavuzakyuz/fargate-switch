@@ -1,0 +1,84 @@
+version: 2.1
+
+parameters:
+  developername:
+    type: string
+    default: "developer1"
+  imagetag:
+    type: string
+    default: "latest"
+
+executors:
+  terraform-executor:
+    docker:
+      - image: hashicorp/terraform:1.4.0
+    environment:
+      AWS_ACCESS_KEY_ID: ${ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${DEFAULT_REGION}
+
+jobs:
+  setup:
+    docker:
+      - image: python:3.9
+    working_directory: ~/repo/multi-service
+    steps:
+      - checkout:
+          path: ~/repo
+      - run:
+          name: Install Python dependencies
+          command: pip install pyhcl
+      - run:
+          name: Modify locals.tf
+          command: python script.py developername=<< pipeline.parameters.developername >> imagetag=<< pipeline.parameters.imagetag >>
+      - run:
+          name: print locals.tf
+          command: cat locals.tf     
+      - persist_to_workspace:
+          root: ~/repo/multi-service
+          paths: 
+            - locals.tf
+
+  plan-apply:
+    executor: terraform-executor
+    working_directory: ~/repo/multi-service
+    steps:
+      - checkout:
+          path: ~/repo
+      - attach_workspace:
+          at: ~/repo/multi-service
+      - run:
+          name: Check AWS Environment Variables
+          command: |
+            echo "Checking ${ACCESS_KEY_ID}"
+            echo "Checking  ${SECRET_ACCESS_KEY:+SET}"
+            echo "Checking ${DEFAULT_REGION}"
+      - run:
+          name: "Setup custom environment variables"
+          command: |
+            echo 'export AWS_ACCESS_KEY_ID=${ACCESS_KEY_ID}' >> "$BASH_ENV"  
+            printenv
+            echo $AWS_ACCESS_KEY_ID
+      - run:
+          name: Print all environment variables
+          command: printenv 
+      - run:
+          name: Initialize Terraform
+          command: |
+            
+            terraform init -backend-config="region=$DEFAULT_REGION"
+  
+      - run:
+          name: Terraform Plan
+          command: terraform plan
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - setup
+      - plan-apply:
+          context:
+           - terraform
+          requires:
+            - setup
