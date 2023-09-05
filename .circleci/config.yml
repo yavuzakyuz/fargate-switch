@@ -9,14 +9,14 @@ jobs:
     steps:
       - checkout
       - terraform/fmt:
-          path: .
+          path: ~/multi-service
       - terraform/validate:
-          path: .
+          path: ~/multi-service
       - terraform/init:
           backend: true
-          path: .
+          path: ~/multi-service
       - terraform/plan:
-          path: .
+          path: ~/multi-service
     working_directory: ~/multi-service
 
 workflows:
@@ -25,4 +25,3 @@ workflows:
       - single-job-lifecycle:
           context:
              - terraform
-      
