@@ -42,18 +42,6 @@ jobs:
           paths: 
             - locals.tf
 
-  aws-cli-cred-setup:
-    executor: aws-cli/default
-    steps:
-      - aws-cli/setup:
-          aws-access-key-id: ACCESS_KEY_ID
-          aws-secret-access-key: SECRET_ACCESS_KEY
-          aws-region: DEFAULT_REGION    
-      - run:
-          name: "whoami"
-          command: aws sts get-caller-identity          
-
-
   plan-apply:
     executor: terraform-executor
     working_directory: ~/repo/multi-service
@@ -84,11 +72,9 @@ jobs:
       - run:
           name: Initialize Terraform
           command: |
-            echo "access_key = \"$ACCESS_KEY_ID\"" > backend-config.tfvars
-            echo "secret_key = \"$SECRET_ACCESS_KEY\"" >> backend-config.tfvars
-            echo "region = \"us-west-2\"" >> backend-config.tfvars
+            
             terraform init -backend-config="region=$DEFAULT_REGION"
-            terraform plan -var-file=backend-config.tfvars
+  
       - run:
           name: Terraform Plan
           command: terraform plan
@@ -99,5 +85,7 @@ workflows:
     jobs:
       - setup
       - plan-apply:
+          context:
+           - terraform
           requires:
             - setup
