@@ -11,6 +11,12 @@ locals {
       container_port = 80
       image_tag = "latest"
       domain = "developer2.${local.domain}"
+    },
+     developer3 = {
+      container_name = "ecsdemo"
+      container_port = 80
+      image_tag = "latest"
+      domain = "developer2.${local.domain}"
     }
   }
 }
