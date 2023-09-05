@@ -22,10 +22,30 @@ jobs:
             wget "https://releases.hashicorp.com/terraform/1.4.0/terraform_1.4.0_linux_amd64.zip" -O terraform_1.4.0_linux_amd64.zip
             unzip -o terraform_1.4.0_linux_amd64.zip
             mv terraform /usr/local/bin/
+      - terraform/init:
+          path: ./multi-service
+
+      - run:
+          name: Check Directory Before Checkout
+          command: |
+            ls -la && pwd
+
       - terraform/validate:
           path: ./multi-service 
+
+      - run:
+          name: Check Directory Before Checkout
+          command: |
+            ls -la && pwd
+
       - terraform/fmt:
           path: ./multi-service 
+
+      - run:
+          name: Check Directory Before Checkout
+          command: |
+            ls -la && pwd
+                
       - terraform/plan:
           path: ./multi-service 
     working_directory: ~/repo
