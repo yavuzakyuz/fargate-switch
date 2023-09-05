@@ -54,12 +54,13 @@ jobs:
           command: |
             echo "Checking if AWS_ACCESS_KEY_ID is set: ${AWS_ACCESS_KEY_ID:+SET}"
             echo "Checking if AWS_SECRET_ACCESS_KEY is set: ${AWS_SECRET_ACCESS_KEY:+SET}"
-            echo "Checking if AWS_DEFAULT_REGION is set: ${AWS_DEFAULT_REGION:+SET}"
-            echo "Checking if AWS_SESSION_TOKEN is set: ${AWS_SESSION_TOKEN:+SET}"
+            echo "Checking if AWS_DEFAULT_REGION is set: ${AWS_DEFAULT_REGION}"
+            echo "Checking if AWS_SESSION_TOKEN is set: ${AWS_SESSION_TOKEN+SET}"
+            aws sts get-caller-identity 
               
       - run:
           name: Initialize Terraform
-          command: terraform init -backend-config="access_key=$AWS_ACCESS_KEY_ID" -backend-config="secret_key=$AWS_SECRET_ACCESS_KEY"
+          command: terraform init -backend-config="region=$AWS_DEFAULT_REGION" -backend-config="access_key=$AWS_ACCESS_KEY_ID" -backend-config="secret_key=$AWS_SECRET_ACCESS_KEY"
       - run:
           name: Terraform Plan
           command: terraform plan
