@@ -7,17 +7,18 @@ jobs:
   single-job-lifecycle:
     executor: terraform/default
     steps:
-      - checkout
+      - checkout:
+          path: ~/repo
       - terraform/fmt:
-          path: ~/multi-service
+          path: ~/repo/multi-service
       - terraform/validate:
-          path: ~/multi-service
+          path: ~/repo/multi-service
       - terraform/init:
           backend: true
-          path: ~/multi-service
+          path: ~/repo/multi-service
       - terraform/plan:
-          path: ~/multi-service
-    working_directory: ~/multi-service
+          path: ~/repo/multi-service
+    working_directory: ~/repo/multi-service
 
 workflows:
   single-job-lifecycle:
