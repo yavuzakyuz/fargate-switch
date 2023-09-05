@@ -42,6 +42,14 @@ jobs:
           paths: 
             - locals.tf
 
+  aws-cli-cred-setup:
+    executor: aws-cli/default
+    steps:
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_ACCESS_SECRET
+          aws-region: AWS_REGION_NAME          
+
   plan-apply:
     executor: terraform-executor
     working_directory: ~/repo/multi-service
@@ -87,6 +95,10 @@ jobs:
 
 workflows:
   version: 2
+  aws-cli:
+    jobs:
+      - aws-cli-cred-setup:
+          context: aws
   build:
     jobs:
       - setup
