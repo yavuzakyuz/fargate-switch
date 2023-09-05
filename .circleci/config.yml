@@ -53,10 +53,7 @@ jobs:
       - run:
           name: Terraform Plan
           command: terraform plan
-      - run:
-          name: Terraform Apply
-          command: echo "yes" | terraform apply
-
+          
 workflows:
   version: 2
   build:
