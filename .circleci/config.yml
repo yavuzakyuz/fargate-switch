@@ -22,6 +22,14 @@ jobs:
             wget "https://releases.hashicorp.com/terraform/1.4.0/terraform_1.4.0_linux_amd64.zip" -O terraform_1.4.0_linux_amd64.zip
             unzip -o terraform_1.4.0_linux_amd64.zip
             mv terraform /usr/local/bin/
+      
+      - run:
+          name: Set Environment Variables
+          command: |
+            echo 'export AWS_ACCESS_KEY_ID=AKIAZ3LRTZ263UQWAVMK' >> $BASH_ENV
+            echo 'export AWS_SECRET_ACCESS_KEY=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' >> $BASH_ENV
+            echo 'export AWS_DEFAULT_REGION=us-west-2' >> $BASH_ENV
+      
       - terraform/init:
           name: init
           path: ./multi-service
