@@ -11,21 +11,22 @@ jobs:
           name: Check AWS Environment Variables
           command: |
             ls -la && pwd
-      
       - checkout
       - run:
           name: Check AWS Environment Variables
           command: |
             ls -1a && pwd
-      - terraform/fmt
-      - terraform/validate
-        
-      - terraform/init:
-          backend: true
-         
-      - terraform/plan
+
+      - terraform/validate:
+          path: ./multi-service 
+      - terraform/validate:
+          path: ./multi-service    
+      - terraform/fmt:
+          path: ./multi-service 
+      - terraform/plan:
+          path: ./multi-service 
        
-    working_directory: ~/repo/multi-service
+    working_directory: ~/repo
 
 workflows:
   single-job-lifecycle:
