@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Check AWS Environment Variables
           command: |
-            ls -1a && pwd && tree
+            ls -1a && pwd
       - terraform/fmt
       - terraform/validate
         
