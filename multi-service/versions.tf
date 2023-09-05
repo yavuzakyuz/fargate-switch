@@ -16,5 +16,6 @@ terraform {
     profile        = ""
     role_arn       = ""
     encrypt        = "true"
+    skip_credentials_validation = true
   }  
 }
