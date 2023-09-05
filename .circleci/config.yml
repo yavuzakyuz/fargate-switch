@@ -8,24 +8,22 @@ jobs:
     executor: terraform/default
     steps:
       - run:
-          name: Check AWS Environment Variables
+          name: Check Directory Before Checkout
           command: |
             ls -la && pwd
       - checkout
       - run:
-          name: Check AWS Environment Variables
+          name: Check Directory After Checkout
           command: |
             ls -1a && pwd
-
+      - terraform/install:
+          terraform_version: 1.4.0
       - terraform/validate:
           path: ./multi-service 
-      - terraform/validate:
-          path: ./multi-service    
       - terraform/fmt:
           path: ./multi-service 
       - terraform/plan:
           path: ./multi-service 
-       
     working_directory: ~/repo
 
 workflows:
