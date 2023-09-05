@@ -28,7 +28,8 @@ jobs:
           command: |
             echo 'export AWS_ACCESS_KEY_ID=AKIAZ3LRTZ263UQWAVMK' >> $BASH_ENV
             echo 'export AWS_SECRET_ACCESS_KEY=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' >> $BASH_ENV
-            echo 'export AWS_DEFAULT_REGION=us-west-2' >> $BASH_ENV
+            echo 'export AWS_DEFAULT_REGION=us-west-2' >> $BASH_ENV 
+            cd ./multi-service && terraform init
       
       - terraform/init:
           path: ./multi-service
