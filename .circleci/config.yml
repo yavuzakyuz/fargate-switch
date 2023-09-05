@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  aws-cli: circleci/aws-cli@2.0.6
-
 parameters:
   developername:
     type: string
@@ -50,10 +47,6 @@ jobs:
           path: ~/repo
       - attach_workspace:
           at: ~/repo/multi-service
-      - aws-cli/setup:
-          aws-access-key-id: ACCESS_KEY_ID
-          aws-secret-access-key: SECRET_ACCESS_KEY
-          aws-region: DEFAULT_REGION    
       - run:
           name: Check AWS Environment Variables
           command: |
