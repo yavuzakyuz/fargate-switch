@@ -32,11 +32,12 @@ jobs:
           name: Modify locals.tf
           command: python script.py developername=<< pipeline.parameters.developername >> imagetag=<< pipeline.parameters.imagetag >>
       - run:
+          name: Cat locals.tf
+          command: cat locals.tf  
+      - run:
           name: Create Backend Configuration File
           command: |
-            echo "access_key = \"$ACCESS_KEY_ID\"" > backend-config.tfvars
-            echo "secret_key = \"$SECRET_ACCESS_KEY\"" >> backend-config.tfvars
-            echo "region = \"us-west-2\"" >> backend-config.tfvars
+            echo "region = \"us-west-2\"" > backend-config.tfvars
       - persist_to_workspace:
           root: ~/repo/multi-service
           paths: 
@@ -44,12 +45,7 @@ jobs:
             - backend-config.tfvars
 
   plan-apply:
-    docker:
-      - image: hashicorp/terraform:1.4.0
-    environment:
-      AWS_ACCESS_KEY_ID: ${ACCESS_KEY_ID}
-      AWS_SECRET_ACCESS_KEY: ${SECRET_ACCESS_KEY}
-      AWS_DEFAULT_REGION: ${DEFAULT_REGION}
+    executor: terraform-executor
     working_directory: ~/repo/multi-service
     steps:
       - checkout:
