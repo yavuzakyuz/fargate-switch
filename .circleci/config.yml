@@ -57,6 +57,10 @@ jobs:
             echo "Checking if AWS_SECRET_ACCESS_KEY is set: ${AWS_SECRET_ACCESS_KEY:+SET}"
             echo "Checking if AWS_DEFAULT_REGION is set: ${AWS_DEFAULT_REGION}"
             echo "Checking if AWS_SESSION_TOKEN is set: ${AWS_SESSION_TOKEN+SET}"
+
+      - run:
+          name: Print all environment variables
+          command: printenv 
               
       - run:
           name: Initialize Terraform
