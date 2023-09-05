@@ -7,7 +7,7 @@ parameters:
   imagetag:
     type: string
     default: "latest"
-
+# do not downgrade version
 executors:
   terraform-executor:
     docker:
