@@ -59,7 +59,7 @@ jobs:
       - run:
           name: Print all environment variables
           command: printenv 
-              
+              # check
       - run:
           name: Initialize Terraform
           command: |
