@@ -48,7 +48,10 @@ jobs:
       - aws-cli/setup:
           aws-access-key-id: AWS_ACCESS_KEY
           aws-secret-access-key: AWS_ACCESS_SECRET
-          aws-region: AWS_REGION_NAME          
+          aws-region: AWS_REGION_NAME    
+      - run:
+          name: "whoami"
+          command: aws sts get-caller-identity          
 
   plan-apply:
     executor: terraform-executor
