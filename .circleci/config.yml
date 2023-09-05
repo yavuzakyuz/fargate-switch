@@ -13,10 +13,9 @@ executors:
     docker:
       - image: hashicorp/terraform:1.4.0
     environment:
-      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
-      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+      AWS_ACCESS_KEY_ID: ${ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${DEFAULT_REGION}
 
 jobs:
   setup:
@@ -53,10 +52,9 @@ jobs:
           name: Check AWS Environment Variables
           command: |
 
-            echo "Checking if AWS_ACCESS_KEY_ID is set: ${AWS_ACCESS_KEY_ID}"
-            echo "Checking if AWS_SECRET_ACCESS_KEY is set: ${AWS_SECRET_ACCESS_KEY:+SET}"
-            echo "Checking if AWS_DEFAULT_REGION is set: ${AWS_DEFAULT_REGION}"
-            echo "Checking if AWS_SESSION_TOKEN is set: ${AWS_SESSION_TOKEN+SET}"
+            echo "Checking ${ACCESS_KEY_ID}"
+            echo "Checking  ${SECRET_ACCESS_KEY:+SET}"
+            echo "Checking ${DEFAULT_REGION}"
 
       - run:
           name: Print all environment variables
