@@ -7,6 +7,10 @@ jobs:
   single-job-lifecycle:
     executor: terraform/default
     steps:
+      - run:
+          name: Check AWS Environment Variables
+          command: |
+            echo ls -la && pwd 
       - checkout:
           path: ~/repo
       - terraform/fmt:
