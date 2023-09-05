@@ -31,19 +31,15 @@ jobs:
             echo 'export AWS_DEFAULT_REGION=us-west-2' >> $BASH_ENV
       
       - terraform/init:
-          name: init
           path: ./multi-service
 
       - terraform/validate:
-          name: validate
           path: ./multi-service 
 
       - terraform/fmt:
-          name: fmt
           path: ./multi-service 
 
       - terraform/plan:
-          name: plan
           path: ./multi-service 
     working_directory: ~/repo
 
