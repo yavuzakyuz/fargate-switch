@@ -8,10 +8,6 @@ jobs:
     executor: terraform/default
     steps:
       - checkout
-      - run:
-          command: >-
-            echo "cr"
-          name: Create .terraformrc file locally
       - terraform/install:
           arch: amd64
           os: linux
