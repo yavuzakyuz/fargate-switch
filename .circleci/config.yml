@@ -11,7 +11,7 @@ parameters:
 executors:
   terraform-executor:
     docker:
-      - image: hashicorp/terraform:1.0.0
+      - image: hashicorp/terraform:1.4.0
     environment:
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
