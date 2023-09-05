@@ -48,6 +48,15 @@ jobs:
           path: ~/repo
       - attach_workspace:
           at: ~/repo/multi-service
+
+      - run:
+          name: Check AWS Environment Variables
+          command: |
+            echo "Checking if AWS_ACCESS_KEY_ID is set: ${AWS_ACCESS_KEY_ID:+SET}"
+            echo "Checking if AWS_SECRET_ACCESS_KEY is set: ${AWS_SECRET_ACCESS_KEY:+SET}"
+            echo "Checking if AWS_DEFAULT_REGION is set: ${AWS_DEFAULT_REGION:+SET}"
+            echo "Checking if AWS_SESSION_TOKEN is set: ${AWS_SESSION_TOKEN:+SET}"
+              
       - run:
           name: Initialize Terraform
           command: terraform init
